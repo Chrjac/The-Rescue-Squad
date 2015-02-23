@@ -7,6 +7,9 @@ public class Gun : MonoBehaviour {
 	public enum GunType{Semi, Auto};
 	public GunType gunType;
 	public float rpm;
+	public float damage = 1;
+
+	public LayerMask collisionMask;
 
 	private LineRenderer tracer;
 
@@ -15,6 +18,8 @@ public class Gun : MonoBehaviour {
 
 	public Transform shellEjector;
 	public Rigidbody shell;
+
+	public float gunId;
 
 	//Ammo
 	private int totalAmmo = 30;
@@ -44,9 +49,12 @@ public class Gun : MonoBehaviour {
 
 		float shotDistance = 20;
 
-		if(Physics.Raycast(ray, out hit, shotDistance))
+		if(Physics.Raycast(ray, out hit, shotDistance, collisionMask))
 			{
 			shotDistance = hit.distance;
+				if(hit.collider.GetComponent<Entity>()){
+					hit.collider.GetComponent<Entity>().TakeDamage(damage);
+				}
 			}
 		cooldown = Time.time + fireRate;
 			currentAmmo --;

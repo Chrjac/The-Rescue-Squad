@@ -8,15 +8,18 @@ public class PlayerController : MonoBehaviour {
 	public float rotationSpeed = 450;
 	public float walkSpeed = 5;
 	public float runSpeed = 8;
+	private float acceleration = 5;
+	private Vector3 currentVelocityMod;
 
 	public Quaternion targetRotation;
-
-	public Gun gun;
+	
 	private CharacterController controller;
 	private Camera cam;
-
+	public Gun[] guns;
+	private Gun currentGun;
 
 	private bool reloading;
+	public Transform handHold;
 
 
 
@@ -24,27 +27,49 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		controller = GetComponent<CharacterController> ();
 		cam = Camera.main;
+		EquipGun (0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		ControlMouse ();
 		//ControlWasd ();
-		if (Input.GetButtonDown ("Shoot")) {
-			gun.Shoot ();
-		} 
-		else if (Input.GetButton ("Shoot"))
-		{
-			gun.ShootAuto();
-		}
-		if (Input.GetButtonDown ("Reload"))
-		{
-			reloading = true;
-		}
-		if (reloading)
-		{
 
+		//Gun Input
+		if (currentGun) {
+				
+			if (Input.GetButtonDown ("Shoot")) {
+				currentGun.Shoot ();
+			} 
+			else if (Input.GetButton ("Shoot"))
+			{
+				currentGun.ShootAuto();
+			}
+			if (Input.GetButtonDown ("Reload"))
+			{
+				reloading = true;
+			}
+			if (reloading)
+			{
+
+			}
 		}
+		for (int i = 0; i<guns.Length; i++)
+		{
+			if(Input.GetKeyDown((i+1) + "") || Input.GetKeyDown("[" + (i+1) + "]")){
+				EquipGun(i);
+				break;
+			}
+		}
+	}
+	void EquipGun(int i)
+	{
+		if (currentGun) 
+		{
+			Destroy(currentGun.gameObject);
+		}
+		currentGun = Instantiate(guns[i], handHold.position, handHold.rotation) as Gun;
+		currentGun.transform.parent = handHold;
 	}
 	void ControlMouse(){
 
@@ -56,7 +81,8 @@ public class PlayerController : MonoBehaviour {
 
 
 		Vector3 input = new Vector3 (Input.GetAxisRaw ("Horizontal"), 0, Input.GetAxisRaw ("Vertical"));
-		Vector3 motion = input;
+		currentVelocityMod = Vector3.MoveTowards (currentVelocityMod, input, acceleration * Time.deltaTime);
+		Vector3 motion = currentVelocityMod;
 		motion *= (Mathf.Abs (input.x) == 1 && Mathf.Abs (input.z) == 1)?.7f:1;
 		motion *= (Input.GetButton("Run"))?runSpeed:walkSpeed;
 		motion += Vector3.up * -8;
