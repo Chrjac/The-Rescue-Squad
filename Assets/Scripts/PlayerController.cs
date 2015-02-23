@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour {
 
 	private bool reloading;
 	public Transform handHold;
+	private GameGUI gui;
+
 
 
 
@@ -47,11 +49,15 @@ public class PlayerController : MonoBehaviour {
 			}
 			if (Input.GetButtonDown ("Reload"))
 			{
-				reloading = true;
-			}
-			if (reloading)
-			{
+				if (currentGun.Reload()){
+					//Animator.SetTrigger("Reload");
+					reloading = true;
+				}
 
+			}
+			if (reloading){
+				currentGun.FinishedReloade();
+				reloading = false;
 			}
 		}
 		for (int i = 0; i<guns.Length; i++)
@@ -70,6 +76,7 @@ public class PlayerController : MonoBehaviour {
 		}
 		currentGun = Instantiate(guns[i], handHold.position, handHold.rotation) as Gun;
 		currentGun.transform.parent = handHold;
+		currentGun.gui = gui;
 	}
 	void ControlMouse(){
 

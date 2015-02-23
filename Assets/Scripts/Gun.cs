@@ -23,10 +23,13 @@ public class Gun : MonoBehaviour {
 
 	//Ammo
 	private int totalAmmo = 30;
-	private int ammoMag = 30;
+	private int ammoMag = 10;
 	private int currentAmmo;
 
 	private bool reloading;
+
+	[HideInInspector]
+	public GameGUI gui;
 
 
 
@@ -38,6 +41,10 @@ public class Gun : MonoBehaviour {
 			tracer = GetComponent<LineRenderer>();
 		}
 		currentAmmo = ammoMag;
+		/*if(gui){
+			gui.SetAmmoInfo(totalAmmo, currentAmmo);
+		}
+		*/
 	}
 
 
@@ -57,8 +64,12 @@ public class Gun : MonoBehaviour {
 				}
 			}
 		cooldown = Time.time + fireRate;
-			currentAmmo --;
-		Debug.Log(currentAmmo + "   " + totalAmmo);
+		currentAmmo --;
+			/*if(gui){
+			gui.SetAmmoInfo(totalAmmo, currentAmmo);
+			}
+			*/
+
 			audio.Play();
 
 
@@ -98,29 +109,32 @@ public class Gun : MonoBehaviour {
 
 		return canShoot;
 	}
-/*	public bool Reload()
+	public bool Reload()
 	{
-
-		if (totalAmmo != 0 && currentAmmo != ammoMag)
-		{
-
+		if (totalAmmo != 0 && currentAmmo != ammoMag){
 			reloading = true;
 			return true;
 		}
-
+		return false;
 	}
-	*/
+
 
 	public void FinishedReloade()
 	{
+
 		reloading = false;
 		currentAmmo = ammoMag;
 		totalAmmo -= ammoMag;
+
 		if (totalAmmo < 0) 
 		{
 			currentAmmo += totalAmmo;
 			totalAmmo = 0;
 		}
+		/*if(gui){
+			gui.SetAmmoInfo(totalAmmo, currentAmmo);
+		}
+		*/
 	}
 	IEnumerator RenderTracer(Vector3 hitPoint)
 	{
