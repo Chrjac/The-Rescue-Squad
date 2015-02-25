@@ -5,6 +5,8 @@ Project("{EB692381-879D-E96C-F906-46A724852E85}") = "The-Rescue-Squad", "Assembl
 EndProject
 Project("{EB692381-879D-E96C-F906-46A724852E85}") = "The-Rescue-Squad", "Assembly-CSharp.csproj", "{D151FD54-2793-BA15-9647-C9FE7DFA2E04}"
 EndProject
+Project("{EB692381-879D-E96C-F906-46A724852E85}") = "The-Rescue-Squad", "Assembly-CSharp-Editor.csproj", "{63207C00-EA42-20D7-1EEA-E39813D42F9E}"
+EndProject
 Project("{EB692381-879D-E96C-F906-46A724852E85}") = "The-Rescue-Squad", "Assembly-UnityScript-firstpass.unityproj", "{CFDAA219-028A-152B-D972-249C05A28F89}"
 EndProject
 Global
@@ -21,6 +23,10 @@ Global
 		{D151FD54-2793-BA15-9647-C9FE7DFA2E04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D151FD54-2793-BA15-9647-C9FE7DFA2E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D151FD54-2793-BA15-9647-C9FE7DFA2E04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63207C00-EA42-20D7-1EEA-E39813D42F9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63207C00-EA42-20D7-1EEA-E39813D42F9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63207C00-EA42-20D7-1EEA-E39813D42F9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63207C00-EA42-20D7-1EEA-E39813D42F9E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CFDAA219-028A-152B-D972-249C05A28F89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CFDAA219-028A-152B-D972-249C05A28F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFDAA219-028A-152B-D972-249C05A28F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,7 +35,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-														GlobalSection(MonoDevelopProperties) = preSolution
+																								GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
