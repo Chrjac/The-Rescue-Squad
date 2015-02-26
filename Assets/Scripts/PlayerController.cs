@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		
 		FlashLight = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<Light>();
 		FlashLight.light.enabled = false;
 
@@ -55,10 +55,9 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetButtonDown ("Flashlight")) {
 			FlashLight.light.enabled = !FlashLight.light.enabled;
 		} 
-		Debug.Log(playerEntity.running);
 		//Gun Input
 		if (currentGun) {
-				
+
 			if (Input.GetButtonDown ("Shoot")) {
 				currentGun.Shoot ();
 				currentGun.bulletspread = 0.05f;
@@ -106,6 +105,7 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 	}
+	[RPC]
 	void EquipGun(int i)
 	{
 		if (currentGun) 

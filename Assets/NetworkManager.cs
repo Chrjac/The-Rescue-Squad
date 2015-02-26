@@ -5,7 +5,7 @@ public class NetworkManager : MonoBehaviour {
 
 	public Camera standByCamera;
 	SpawnSpot[] spawnSpots;
-
+	public bool offlineMode = false;
 
 
 	void Start () {
@@ -13,7 +13,13 @@ public class NetworkManager : MonoBehaviour {
 		Connect ();
 	}
 	void Connect(){
+		if (offlineMode) {
+			PhotonNetwork.offlineMode = true;
+			OnJoinedLobby();
+		} 
+		else {
 		PhotonNetwork.ConnectUsingSettings("1.0.0");
+		}
 	}
 	void OnGUI(){
 		GUILayout.Label (PhotonNetwork.connectionStateDetailed.ToString ());

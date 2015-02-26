@@ -72,9 +72,10 @@ public class Gun : MonoBehaviour {
 			}
 
 	}
-
+	[RPC]
 	public void Shoot()
 	{
+
 		Vector3 spread = bulletSpawn.forward;
 		spread.x += Random.Range (-bulletspread, bulletspread);
 		spread.z += Random.Range (-bulletspread, bulletspread);
@@ -89,8 +90,11 @@ public class Gun : MonoBehaviour {
 		if(Physics.Raycast(ray, out hit, shotDistance, collisionMask))
 			{
 			shotDistance = hit.distance;
+				PhotonView pv =  hit.collider.GetComponent<PhotonView>();
 				if(hit.collider.GetComponent<Entity>()){
-					hit.collider.GetComponent<Entity>().TakeDamage(damage);
+					//hit.collider.GetComponent<Entity>().TakeDamage(damage);
+					hit.collider.GetComponent<PhotonView>().RPC("TakeDamage", PhotonTargets.All, damage);
+
 				}
 			}
 		cooldown = Time.time + fireRate;
@@ -105,7 +109,6 @@ public class Gun : MonoBehaviour {
 			*/
 
 			audio.Play();
-
 
 			if (tracer)
 			{
@@ -177,6 +180,7 @@ public class Gun : MonoBehaviour {
 		}
 		*/
 	}
+	[RPC]
 	IEnumerator RenderTracer(Vector3 hitPoint)
 	{
 		tracer.enabled = true;

@@ -42,7 +42,7 @@ public class Entity : MonoBehaviour {
 		hp.text = health.ToString();
 		} 
 		}
-	
+	[RPC]
 	public virtual void TakeDamage(float dmg){
 		health -= dmg;
 
@@ -55,7 +55,14 @@ public class Entity : MonoBehaviour {
 		}
 	}
 	public virtual void Die(){
-		Destroy (gameObject);
+		if (GetComponent<PhotonView> ().instantiationId == 0) {
+			Destroy (gameObject);
+		} 
+		else {
+			if(PhotonNetwork.isMasterClient){
+			PhotonNetwork.Destroy (gameObject);
+			}
+		}
 	}
 
 
