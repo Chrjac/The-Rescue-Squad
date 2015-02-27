@@ -8,9 +8,12 @@ public class NetworkManager : MonoBehaviour {
 	public bool offlineMode = false;
 
 
+
 	void Start () {
+
 		spawnSpots = GameObject.FindObjectsOfType<SpawnSpot> ();
 		Connect ();
+
 	}
 	void Connect(){
 		if (offlineMode) {
@@ -28,12 +31,12 @@ public class NetworkManager : MonoBehaviour {
 	}
 	void OnJoinedLobby(){
 		PhotonNetwork.JoinRandomRoom ();
+
 	}
 	void OnPhotonRandomJoinFailed(){
 		PhotonNetwork.CreateRoom (null);
 	}
 	void OnJoinedRoom(){
-
 		SpawnMyPlayer ();
 	}
 	void SpawnMyPlayer(){

@@ -14,7 +14,10 @@ public class Entity : MonoBehaviour {
 	public bool running = false; 
 	private bool resting = false;
 
+
+
 	void Start(){
+
 		hp = GameObject.FindGameObjectWithTag("hp").GetComponent<Text>();
 		if (sliderstam) {
 			sliderstam.value = stam;

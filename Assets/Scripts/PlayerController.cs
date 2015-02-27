@@ -27,16 +27,17 @@ public class PlayerController : MonoBehaviour {
 	private float reloadTime = 0;
 
 	private Entity playerEntity;
+	private inputName playername;
+
 	public Text relode;
 
 	public Light FlashLight;
 
 
 
-
 	// Use this for initialization
 	void Start () {
-		
+		playername = GetComponent<inputName> ();
 		FlashLight = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<Light>();
 		FlashLight.light.enabled = false;
 
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour {
 		EquipGun (0);
 		relode = GameObject.FindGameObjectWithTag("relode").GetComponent<Text>();
 		relode.text = "";
+
 	}
 	
 	// Update is called once per frame
